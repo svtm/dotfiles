@@ -83,7 +83,7 @@ do
 			# remove existing symlinks
 			# remove files which would be replaced with symlinks
 			# remove symlinks which belong to other packages (which may cause trouble later but ho hum)
-			CONFLICTS=$(stow -nv "$app" 2>&1 | awk '/\* existing target is/ {print $NF}')
+			CONFLICTS=$(stow -nv "$app" 2>&1 | awk '/\* existing target is/ { for (i=11;i<=NF;i++){printf( (i==NF) ? "%s\n" : "%s ", $i)}}')
 			echo "$CONFLICTS"
 			delete_symlinks "$CONFLICTS"
 		fi
@@ -108,5 +108,9 @@ do
 		if [[ $? -ne 0 && $DRY_RUN -eq 0 ]]; then
 			echo 'Stow returned a non-zero result. You may want to re-run with -f (force)'
 		fi
+	fi
+
+	if [[ $DRY_RUN -eq 1 ]]; then
+		echo "DRY RUN -- NO CHANGES MADE"
 	fi
 done
