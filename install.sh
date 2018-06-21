@@ -63,6 +63,10 @@ function delete_symlinks {
 
 for app in "$@"
 do
+	if [[ $DRY_RUN -eq 1 ]]; then
+		echo "DRY RUN -- NOT MAKING CHANGES"
+	fi
+
 	if [[ $FORCE -eq 1 ]]; then
 		# forcefully delete any conflicts in stow
 		IFS=$(echo -en "\n\b")
