@@ -2,7 +2,7 @@
 width = 100%
 height = 40
 
-monitor = ${env:MONITOR:eDP-1}
+monitor = ${env:MONITOR:}
 
 background = #141021
 foreground = #c4b7c5
@@ -18,6 +18,8 @@ modules-right = wireless-network cpu memory temperature backlight battery powerm
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
+
+tray-position = right
 
 
 [module/i3]
