@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/enielsen/.oh-my-zsh"
+  export ZSH="/usr/share/oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -98,7 +98,8 @@ source $ZSH/oh-my-zsh.sh
 
 xset b off
 NPM_PACKAGES="${HOME}/.npm-packages"
-PATH="$NPM_PACKAGES/bin:$PATH"
+LOCAL_PACKAGES="${HOME}/.local"
+PATH="$NPM_PACKAGES/bin:$LOCAL_PACKAGES/bin:$PATH"
 
 unset MANPATH
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
@@ -111,4 +112,14 @@ function options() {
     for plugin in $plugins; do
         echo "\n\nPlugin: $plugin"; grep -r "^function \w*" $PLUGIN_PATH$plugin | awk '{print $2}' | sed 's/()//'| tr '\n' ', '; grep -r "^alias" $PLUGIN_PATH$plugin | awk '{print $2}' | sed 's/=.*//' |  tr '\n' ', '
     done
+}
+
+function lpc() {
+    if [ -z "$2" ]; then
+        field="Password"
+    else
+	field=$2
+    fi
+    lpass show $1 | grep $field | awk '{print $2}' | xclip -selection c
+    echo "Copied field $field from service $1 to clipboard (if it existed)"
 }
