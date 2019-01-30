@@ -1,26 +1,43 @@
+
+
 [bar/top]
 width = 100%
-height = 40
+height = 30
 
 monitor = ${env:MONITOR:}
 
-background = #141021
-foreground = #c4b7c5
+background = ${colors.background}
+foreground = ${colors.foreground}
+border-color     = ${colors.accent}
+
+border-bottom-size = 2
 
 fixed-center = true
 
-font-0 = PragmataPro:pixelsize=12:weight=bold;0
-font-1 = Inconsolata Nerd Font Mono:pixelsize=18
+font-0 = Space Mono for Powerline:pixelsize=10;0
+font-1 = TerminessTTF Nerd Font:pixelsize=9
 
 modules-left = i3
 modules-center = date
-modules-right = wireless-network cpu memory temperature backlight battery powermenu
+modules-right = player-mpris-tail spacer wireless-network spacer backlight spacer pulseaudio spacer battery
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
-tray-position = right
+tray-position = right 
 
+[colors]
+background          = #2d2d2d
+background-light    = #3a3a3a
+foreground          = #f2f2f2
+accent              = #00bbff
+urgent              = #e4b226
+
+[module/spacer]
+type = custom/text
+content = //
+content-foreground = ${colors.accent}
+content-padding = 0
 
 [module/i3]
 type = internal/i3
@@ -31,15 +48,16 @@ index-sort = true
 enable-scroll = false
 
 format = <label-state> <label-mode>
-format-padding-right = 2
+format-padding-right = 0
 
-label-unfocused-foreground = #8a7f8f
+label-unfocused-foreground = ${colors.foreground}
 label-unfocused-padding = 1
 
-label-focused-foreground = #c16772
+label-focused-foreground = ${colors.accent}
 label-focused-padding = 1
 
-label-urgent-foreground = #e4b226
+
+label-urgent-foreground = ${colors.urgent}
 label-urgent-padding = 1
 
 
@@ -51,7 +69,7 @@ interval = 1
 format = <label>
 format-padding = 2
 
-label =  %percentage%%
+label = %{F#00bbff}%{F-} %percentage%%
 
 
 [module/memory]
@@ -62,7 +80,7 @@ interval = 1
 format = <label>
 format-padding = 2
 
-label =  %gb_used% (%percentage_used%%)
+label = %{F#00bbff}%{F-} %gb_used% (%percentage_used%%)
 
 
 [module/temperature]
@@ -91,14 +109,13 @@ ramp-2 = 
 ramp-3 = 
 ramp-4 = 
 
-
 [module/date]
 type = internal/date
 
 interval = 1
 
-date = %a %b %d, 
-time = %H:%M:%S
+date = %a %d%{F#00bbff}/%{F-}%m 
+time = %H%{F#00bbff}:%{F-}%M%{F#00bbff}:%{F-}%S
 
 date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
@@ -106,7 +123,7 @@ time-alt = %H:%M:%S
 format = <label>
 format-padding = 2
 
-label =  %date% %time%
+label = %date% %time%
 
 
 [module/battery]
@@ -125,7 +142,8 @@ format-charging-padding = 2
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-padding = 2
 
-format-full = <ramp-capacity> <label-full>
+#format-full = <ramp-capacity> <label-full>
+format-full =
 format-full-padding = 2
 
 label-charging = %percentage%%
@@ -139,6 +157,7 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.accent}
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -146,6 +165,7 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 500
+animation-charging-foreground = ${colors.accent}
 
 
 [module/backlight]
@@ -156,7 +176,7 @@ card = intel_backlight
 format = <label>
 format-padding = 2
 
-label =  %percentage%%
+label = %{F#00bbff}%{F-} %percentage%%
 
 
 [module/pavolume]
@@ -230,7 +250,7 @@ exec = ~/scripts/weather.py
 [module/wireless-network]
 type = internal/network
 
-interface = wlo1
+interface = wlp2s0
 
 format-connected = <label-connected>
 format-connected-padding = 2
@@ -238,6 +258,58 @@ format-connected-padding = 2
 format-disconnected = <label-disconnected>
 format-disconnected-padding = 2
 
-label-connected =  %essid%
+label-connected = %{F#00bbff}%{F-} %essid%
 
-label-disconnected =  None
+label-disconnected = %{F#00bbff}%{F-} None
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+;sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5
+
+;format-volume = %{F#00bbff}<ramp-volume>%{F-} <label-volume>
+format-volume = <bar-volume> <label-volume>
+format-muted = <label-muted>
+label-volume = %percentage%
+label-muted = ﱝ
+label-muted-foreground = ${colors.urgent}
+label-muted-padding = 2
+label-muted-size = 15
+
+bar-volume-width = 10
+bar-volume-indicator = |
+bar-volume-indicator-foreground = ${colors.accent}
+bar-volume-fill = -
+bar-volume-fill-foreground = ${colors.accent}
+bar-volume-empty = -
+
+ramp-volume-padding = 1
+
+ramp-volume-0 = ▁
+ramp-volume-1 = ▂
+ramp-volume-2 = ▃
+ramp-volume-3 = ▄
+ramp-volume-4 = ▅
+ramp-volume-5 = ▆
+ramp-volume-6 = ▇
+ramp-volume-7 = █
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+click-right = ~/scripts/player-mpris-tail.py previous
+click-left = ~/scripts/player-mpris-tail.py next
+click-middle = ~/scripts/player-mpris-tail.py play-pause
+format-padding = 1
