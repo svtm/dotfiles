@@ -60,7 +60,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec firefox
-bindsym $mod+Ctrl+space exec rofi -show run
+bindsym $mod+Ctrl+space exec rofi -m -4 -show run
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
@@ -313,6 +313,7 @@ exec --no-startup-id xautolock -time 10 -locker "betterlockscreen -l dimblur"
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/scripts/monitor_toggle.sh
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
