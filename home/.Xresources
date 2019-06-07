@@ -33,38 +33,23 @@ URxvt.keysym.Shift-Alt-C: eval:selection_to_clipboard
 URxvt.keysym.C-Down: resize-font:smaller
 URxvt.keysym.C-Up: resize-font:bigger
 
-*.foreground:   #ffeefc
-*.background:   #141021
-*.cursorColor:  #c16772
+*.foreground: #FFFFFF
+*.background: #252828
+*.cursorColor: #5AF78E
 
-! black
-*.color0:       #4f4858
-*.color8:       #545d67
-
-! red
-*.color1:       #c05c47
-*.color9:       #c16772
-
-! green
-*.color2:       #428e8e
-*.color10:      #afda6e
-
-! yellow
-*.color3:       #e4b226
-*.color11:      #ebcf1a
-
-! blue
-*.color4:       #4457a3
-*.color12:      #4880a5
-
-! magenta
-*.color5:       #903a62
-*.color13:      #9568a1
-
-! cyan
-*.color6:       #7aa1dc
-*.color14:      #abbcda
-
-! white
-*.color7:       #c4b7c5
-*.color15:      #ffeefc
+*.color0: #252828
+*.color1: #FF5C57
+*.color2: #FFB536
+*.color3: #F3F99D
+*.color4: #5AF78E
+*.color5: #9AEDFE
+*.color6: #57C7FF
+*.color7: #FFFFFF
+*.color8: #545d67
+*.color9: #FF5C57
+*.color10: #FFB536
+*.color11: #F3F99D
+*.color12: #5AF78E
+*.color13: #9AEDFE
+*.color14: #57C7FF
+*.color15: #FFFFFF

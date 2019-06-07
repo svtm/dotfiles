@@ -1,6 +1,6 @@
 [global]
-    frame_width = 1
-    frame_color = "#c16772"
+    frame_width = 2
+    frame_color = "#5AF78E"
     
     font = PragmataPro 12
     
@@ -50,7 +50,7 @@
     
     # Split notifications into multiple lines if they don't fit into
     # geometry.
-    word_wrap = no
+    word_wrap = yes
     
     # Ignore newlines '\n' in notifications.
     ignore_newline = no
@@ -154,7 +154,7 @@
     icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
 
     # Limit icons size.
-    max_icon_size=128
+    max_icon_size=8
 
 [shortcuts]
 
@@ -300,3 +300,7 @@
 #     foreground = "#F67245"
 #
 # vim: ft=cfg
+
+[spotify]
+    appname = spotify
+    max_icon_size = 8

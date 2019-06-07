@@ -16,7 +16,7 @@ hide_edge_borders none
 
 # change borders
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -27,7 +27,7 @@ font xft:PragmataPro 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -57,7 +57,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec firefox
-bindsym $mod+Ctrl+space exec rofi -show run
+bindsym $mod+Ctrl+space exec "rofi -combi-modi window,run -show run -sidebar-mode"
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
@@ -351,15 +351,15 @@ set_from_resource $term_color15    color15
 #}
 
 
-# hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+# hide/unhide bottom polybar
+bindsym $mod+m exec echo cmd:toggle >/tmp/ipc-stats
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #c16772 #c16772 #80FFF9 #FDF6E3
-  client.focused_inactive #8a7f8f #8a7f8f #1ABC9C #454948
-  client.unfocused        #8a7f8f #8a7f8f #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+  client.focused          #5AF78E #5AF78E #2d2d2d #FDF6E3
+  client.focused_inactive #5c7282 #3a3a3a #f2f2f2 #454948
+  client.unfocused        #5c7282 #2d2d2d #f2f2f2 #454948
+  client.urgent           #FFB536 #FDF6E3 #1ABC9C #268BD2
   client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
   client.background       #2B2C2B

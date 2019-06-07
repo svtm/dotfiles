@@ -1,8 +1,8 @@
 rofi.color-enabled: true
-rofi.color-window: #141021, #c16772, #9568a1
-rofi.color-normal: #141021, #ffeefc, #312842, #c16772, #ffeefc
-rofi.color-active: #141021, #c05c47, #312842, #c05c47, #ffeefc
-rofi.color-urgent: #141021, #e4b226, #312842, #e4b226, #ffeefc
+rofi.color-window: #2d2d2d, #5AF78E, #5AF78E
+rofi.color-normal: #3a3a3a, #FFFFFF, #2d2d2d, #5AF78E, #252828
+rofi.color-active: #3a3a3a, #5AF78E, #2d2d2d, #5AF78E, #FFFFFF
+rofi.color-urgent: #3a3a3a, #FFB536, #2d2d2d, #FFB536, #FFFFFF
 rofi.width: 800
 rofi.padding: 30
 rofi.font: PragmataPro 14

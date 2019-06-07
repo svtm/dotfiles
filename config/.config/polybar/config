@@ -1,24 +1,58 @@
-[bar/top]
+[bar/base]
 width = 100%
-height = 40
+height = 30
+enable-ipc = true
 
-monitor = ${env:MONITOR:eDP-1}
+monitor = ${env:MONITOR:}
 
-background = #141021
-foreground = #c4b7c5
 
 fixed-center = true
 
-font-0 = PragmataPro:pixelsize=12:weight=bold;0
-font-1 = Inconsolata Nerd Font Mono:pixelsize=18
+font-0 = Space Mono for Powerline:pixelsize=10;0
+font-1 = Space Mono for Powerline:pixelsize=14
+font-2 = TerminessTTF Nerd Font:pixelsize=14
+
+[bar/top]
+inherit = bar/base
+border-bottom-size = 2
 
 modules-left = i3
 modules-center = date
-modules-right = wireless-network cpu memory temperature backlight battery powermenu
+modules-right = player-mpris-tail spacer wireless-network spacer pulseaudio spacer battery
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
+[bar/stats]
+inherit = bar/base
+border-top-size = 2
+bottom = true
+monitor = 
+tray-position = right
+tray-transparent = true
+
+modules-left = network-usage spacer filesystem
+modules-right = cpu spacer memory spacer temperature
+
+;separator = 
+; Can't color this apparently
+;separator-foreground = ${colors.accent}
+
+[colors]
+background          = #2d2d2d
+background-light    = #3a3a3a
+foreground          = #ffffff
+accent              = #5AF78E
+urgent              = #FFB536
+up                  = #5AF78E
+
+[module/spacer]
+type = custom/text
+content = |
+content-foreground = ${colors.urgent}
+content-padding = 0
+
+;; -- Top bar modules ;; --
 
 [module/i3]
 type = internal/i3
@@ -40,54 +74,13 @@ label-focused-padding = 1
 label-urgent-foreground = #e4b226
 label-urgent-padding = 1
 
+[module/isrunning-bluetooth]
+type = custom/script
+exec = ~/scripts/isrunning-bluetooth.sh
+label-foreground = ${colors.accent}
+click-left = exec blueman-manager
+interval = 10
 
-[module/cpu]
-type = internal/cpu
-
-interval = 1
-
-format = <label>
-format-padding = 2
-
-label =  %percentage%%
-
-
-[module/memory]
-type = internal/memory
-
-interval = 1
-
-format = <label>
-format-padding = 2
-
-label =  %gb_used% (%percentage_used%%)
-
-
-[module/temperature]
-type = internal/temperature
-
-interval = 1
-
-thermal-zone = 6
-
-warn-temperature = 80
-
-format = <ramp> <label>
-format-padding = 2
-
-format-warn = <ramp> <label-warn>
-format-warn-padding = 2
-
-label = %temperature%
-
-label-warn = %temperature%
-label-warn-foreground = #e4b226
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
 
 
 [module/date]
@@ -95,8 +88,8 @@ type = internal/date
 
 interval = 1
 
-date = %a %b %d, 
-time = %H:%M:%S
+date = %a %d%{F#5AF78E}/%{F-}%m 
+time = %H%{F#5AF78E}:%{F-}%M%{F#5AF78E}:%{F-}%S
 
 date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
@@ -118,13 +111,14 @@ adapter = ACAD
 poll-interval = 5
 
 format-charging = <animation-charging> <label-charging>
-format-charging-padding = 2
+format-charging-padding = 1
 
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-padding = 2
+format-discharging-padding = 1
 
-format-full = <ramp-capacity> <label-full>
-format-full-padding = 2
+#format-full = <ramp-capacity> <label-full>
+format-full =
+format-full-padding = 1
 
 label-charging = %percentage%%
 
@@ -148,94 +142,171 @@ animation-charging-framerate = 500
 
 [module/backlight]
 type = internal/backlight
-
 card = intel_backlight
-
 format = <label>
 format-padding = 2
-
-label =  %percentage%%
-
-
-[module/pavolume]
-type = custom/script
-
-interval = 1
-
-format-padding = 2
-
-exec = ~/scripts/pavolume.sh
-
-click-left = ~/scripts/pavolume.sh --togmute
-scroll-up = ~/scripts/pavolume.sh --up
-scroll-down = ~/scripts/pavolume.sh --down
-
-
-[module/powermenu]
-type = custom/menu
-
-label-open =   
-
-label-close = cancel
-
-label-close-background = #312842
-label-close-foreground = #ffeefc
-label-open-padding-left = 4
-label-open-padding-right = 3
-label-close-padding = 3
-
-menu-0-0 = lock
-menu-0-0-exec = ~/scripts/lock.sh
-menu-0-0-background = #312842
-menu-0-0-foreground = #c05c47
-menu-0-0-padding-right = 3
-
-menu-0-1 = reboot
-menu-0-1-exec = menu-open-1
-menu-0-1-background = #312842
-menu-0-1-foreground = #c05c47
-menu-0-1-padding-right = 3
-
-menu-0-2 = power off
-menu-0-2-exec = menu-open-2
-menu-0-2-background = #312842
-menu-0-2-foreground = #c05c47
-menu-0-2-padding-right = 3
-
-menu-1-0 = reboot?  
-menu-1-0-exec = reboot
-menu-1-0-background = #312842
-menu-1-0-foreground = #e4b226
-menu-1-0-padding-right = 3
-
-menu-2-0 = power off?  
-menu-2-0-exec = poweroff
-menu-2-0-background = #312842
-menu-2-0-foreground = #e4b226
-menu-2-0-padding-right = 3
+label = %{F#5AF78E}%{F-} %percentage%%
 
 
 [module/weather]
 type = custom/script
-
 interval = 120
-
 format-padding = 2
-
 exec = ~/scripts/weather.py
 
 
 [module/wireless-network]
 type = internal/network
+interface = wlp2s0
+format-connected = <label-connected>
+format-connected-padding = 1
+format-disconnected = <label-disconnected>
+format-disconnected-padding = 1
+label-connected-foreground = ${colors.accent}
+label-connected = %{A1:nm-connection-editor:}%{A}
+label-disconnected-foreground = ${colors.urgent}
+label-disconnected = %{A1:nm-connection-editor:}%{A}
 
-interface = wlo1
+[module/pulseaudio]
+type = internal/pulseaudio
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+;sink = alsa_output.pci-0000_12_00.3.analog-stereo
 
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5
+
+;format-volume = %{F#5AF78E}<ramp-volume>%{F-} <label-volume>
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+label-volume = %percentage%
+label-muted = 婢
+label-muted-foreground = ${colors.urgent}
+label-muted-padding = 1
+label-muted-size = 15
+
+label-volume-padding-right = 1
+
+bar-volume-width = 10
+bar-volume-indicator = |
+bar-volume-indicator-foreground = ${colors.accent}
+bar-volume-fill = -
+bar-volume-fill-foreground = ${colors.accent}
+bar-volume-empty = -
+ramp-volume-foreground = ${colors.accent}
+
+ramp-volume-padding-left = 1
+
+;ramp-volume-0 = ▁
+;ramp-volume-1 = ▂
+;ramp-volume-2 = ▃
+;ramp-volume-3 = ▄
+;ramp-volume-4 = ▅
+;ramp-volume-5 = ▆
+;ramp-volume-6 = ▇
+;ramp-volume-7 = █
+
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/scripts/player-mpris-tail.py --icon-playing  --icon-paused  --icon-stopped ; -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+click-right = ~/scripts/player-mpris-tail.py previous
+click-left = ~/scripts/player-mpris-tail.py next
+click-middle = ~/scripts/player-mpris-tail.py play-pause
+format-padding = 1
+
+
+;; -- Bottom bar modules -- ;;
+[module/network-usage]
+type = internal/network
+interface = wlp2s0
 format-connected = <label-connected>
 format-connected-padding = 2
-
 format-disconnected = <label-disconnected>
 format-disconnected-padding = 2
+label-connected = %{F#5AF78E}%{F-} %local_ip% %{F#afda6e}%{F-} %downspeed% %{F#ffb536}祝%{F-} %upspeed% 
+label-disconnected = %{F#5AF78E}%{F-} None
 
-label-connected =  %essid%
+accumulate-stats = true
+format-padding = 2
 
-label-disconnected =  None
+[module/cpu]
+type = internal/cpu
+
+interval = 1
+
+format = <label>
+format-padding = 2
+
+label = %{F#5AF78E}%{F-} %percentage-cores%
+ramp-coreload-spacing = 1
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+
+
+[module/memory]
+type = internal/memory
+
+interval = 1
+
+format = <label>
+format-padding = 2
+
+label = %{F#5AF78E}%{F-} %gb_used% (%percentage_used%%)
+
+
+[module/temperature]
+type = internal/temperature
+
+interval = 1
+
+thermal-zone = 0
+
+warn-temperature = 80
+
+format = <ramp> <label>
+format-padding = 2
+
+format-warn = <ramp> <label-warn>
+format-warn-padding = 2
+
+label = %temperature%
+
+label-warn = %temperature%
+label-warn-foreground = ${colors.urgent}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.accent}
+
+[module/filesystem]
+type = internal/fs
+
+mount-0 = /
+
+interval = 10
+fixed-values = true
+spacing = 2
+
+format-mounted = <label-mounted>
+label-mounted = %{F#5AF78E}%{F-} %used% / %total% (%percentage_used%%)
+format-mounted-padding = 2
