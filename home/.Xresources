@@ -11,7 +11,7 @@ Xft.rgba:                       rgb
 URxvt*termName:                 rxvt-256color
 URxvt.depth:                    32
 URxvt*lineSpace:                1
-URxvt.letterSpace:              -1
+URxvt*letterSpace:              -1
 URxvt.iso14755:                 false
 URxvt.iso14755_52:              false
 URxvt*geometry:                 65x17
@@ -21,7 +21,8 @@ URxvt.internalBorder:           10
 URxvt.perl-ext:	 		default,matcher,resize-font,clipboard,keyboard-select
 URxvt.url-launcher:             firefox
 URxvt.matcher.button: 		1
-URxvt.font: xft:Space Mono For Powerline:pixelsize=13
+URxvt*font: xft:Space Mono For Powerline:pixelsize=13
+
 
 
 URxvt.keysym.Control-Left:   \033[1;5D
