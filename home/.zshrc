@@ -108,6 +108,17 @@ source /usr/share/fzf/key-bindings.zsh
 
 unsetopt share_history
 
+# If current selection is a text file shows its content,
+# if it's a directory shows its content, the rest is ignored
+FZF_CTRL_T_OPTS="--preview-window wrap --preview '
+if [[ -f {} ]]; then
+    file --mime {} | grep -q \"text\/.*;\" && bat --color \"always\" {} || (tput setaf 1; file --mime {})
+elif [[ -d {} ]]; then
+    exa -l --color always {}
+else;
+    tput setaf 1; echo YOU ARE NOT SUPPOSED TO SEE THIS!
+fi'"
+
 function options() {
     PLUGIN_PATH="$HOME/.oh-my-zsh/plugins/"
     for plugin in $plugins; do
@@ -124,3 +135,6 @@ function lpc() {
     lpass show $1 | grep $field | awk '{print $2}' | xclip -selection c
     echo "Copied field $field from service $1 to clipboard (if it existed)"
 }
+
+alias cdsigapp="cd ~/signicat/signicat-stack"
+alias cdsig="cd ~/signicat/"

@@ -19,7 +19,7 @@ hide_edge_borders none
 
 # CHANGE borders
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -56,6 +56,12 @@ bindsym $mod+Ctrl+m exec pavucontrol
 # Screen brightness controls
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# Media playback
+bindsym XF86AudioPlay exec playerctl play-pause
+#bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
@@ -158,7 +164,7 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 
-# switch to workspace
+# switch to workspace, number row
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -167,6 +173,16 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+
+# switch to workspace, keypad
+bindsym $mod+Mod2+KP_1 workspace $ws1
+bindsym $mod+Mod2+KP_2 workspace $ws2
+bindsym $mod+Mod2+KP_3 workspace $ws3
+bindsym $mod+Mod2+KP_4 workspace $ws4
+bindsym $mod+Mod2+KP_5 workspace $ws5
+bindsym $mod+Mod2+KP_6 workspace $ws6
+bindsym $mod+Mod2+KP_7 workspace $ws7
+bindsym $mod+Mod2+KP_8 workspace $ws8
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -210,6 +226,7 @@ workspace $ws8 output $internal
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
+assign [class="Slack"] $ws8
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -239,6 +256,8 @@ for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+#for_window [class="feh"] floating enable
+#for_window [class="mpv"] floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
@@ -312,11 +331,13 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker "betterlockscreen -l dimblur"
+exec --no-startup-id xautolock -time 5 -locker "betterlockscreen -l dimblur"
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/scripts/monitor_toggle.sh
+exec_always --no-startup-id ~/scripts/mouse_buttons.sh
+exec --no-startup-id ~/scripts/startup.sh
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
